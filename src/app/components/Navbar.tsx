@@ -16,7 +16,13 @@ import {
   Settings,
   Bell,
   UserCircle,
-  LogOut
+  LogOut,
+  Building,
+  User as UserIcon,
+  LineChart,
+  LayoutDashboard,
+  BarChart,
+  FileText
 } from 'lucide-react'
 
 export default function Navbar() {
@@ -139,6 +145,91 @@ export default function Navbar() {
                   >
                     <Calendar className="h-4 w-4" />
                     <span>Planification des congés</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Menu Référentiel des données */}
+          <div className="relative">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
+            >
+              <ClipboardList className="h-5 w-5" />
+              <span>Référentiel des données</span>
+            </button>
+
+            {isMenuOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+                <div className="p-2">
+                  <Link
+                    href="/referentiel/personnel-bar"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <UserCircle className="h-4 w-4" />
+                    <span>Personnel de bar O'Sullivans</span>
+                  </Link>
+                  <Link
+                    href="/referentiel/personnel-securite"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <ShieldCheck className="h-4 w-4" />
+                    <span>Personnel de sécurité O'Sullivans</span>
+                  </Link>
+                  <Link
+                    href="/referentiel/societe-prestataire"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <Building className="h-4 w-4" />
+                    <span>Société prestataire de sécurité</span>
+                  </Link>
+                  <Link
+                    href="/referentiel/agents-prestataire"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <UserIcon className="h-4 w-4" />
+                    <span>Agents prestataire de sécurité</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Menu Pilotage et Analyses */}
+          <div className="relative">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
+            >
+              <LineChart className="h-5 w-5" />
+              <span>Pilotage et Analyses</span>
+            </button>
+
+            {isMenuOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+                <div className="p-2">
+                  <Link
+                    href="/pilotage/tableaux-bord"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    <span>Tableaux de bord sécurité</span>
+                  </Link>
+                  <Link
+                    href="/pilotage/analyses-statistiques"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <BarChart className="h-4 w-4" />
+                    <span>Analyses statistiques approfondies</span>
+                  </Link>
+                  <Link
+                    href="/pilotage/rapports-consolides"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <FileText className="h-4 w-4" />
+                    <span>Rapports consolidés</span>
                   </Link>
                 </div>
               </div>
