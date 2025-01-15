@@ -15,7 +15,8 @@ import {
   Lock,
   Settings,
   Bell,
-  User as UserIcon
+  UserCircle,
+  LogOut
 } from 'lucide-react'
 
 export default function Navbar() {
@@ -149,11 +150,9 @@ export default function Navbar() {
         <div className="relative">
           <button
             onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center justify-center h-10 w-10 bg-[#35BDB6] text-white rounded-full hover:bg-[#2a9c96] transition-colors"
+            className="flex items-center justify-center text-[#35BDB6] rounded-lg hover:text-[#2a9c96] transition-colors"
           >
-            {user ? 
-              getInitials(user.user_metadata?.full_name || user.email || '') 
-              : <UserIcon className="h-5 w-5" />}
+            <UserCircle className="h-10 w-10" />
           </button>
 
           {isProfileOpen && (
@@ -169,7 +168,7 @@ export default function Navbar() {
                   href="/profile"
                   className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                 >
-                  <UserIcon className="h-4 w-4" />
+                  <UserCircle className="h-4 w-4" />
                   <span>Informations personnelles</span>
                 </Link>
                 <Link
@@ -181,8 +180,9 @@ export default function Navbar() {
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="w-full text-left flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  className="w-full text-left flex items-center space-x-2 p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
                 >
+                  <LogOut className="h-4 w-4" />
                   <span>Déconnexion</span>
                 </button>
               </div>
