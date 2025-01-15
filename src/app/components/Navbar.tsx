@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import type { User } from '@supabase/supabase-js'
 import Image from 'next/image'
 import {
   ClipboardList,
@@ -13,17 +14,38 @@ import {
   Ticket,
   Lock,
   Settings,
-  Bell
+  Bell,
+  User as UserIcon
 } from 'lucide-react'
 
 export default function Navbar() {
   const supabase = createClientComponentClient()
   const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setUser(user)
+      }
+    }
+    getUser()
+  }, [])
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     router.push('/auth/login')
+  }
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
   }
 
   return (
@@ -121,14 +143,52 @@ export default function Navbar() {
               </div>
             )}
           </div>
-
         </div>
-        <button
-          onClick={handleSignOut}
-          className="bg-white text-[#0B2228] px-4 py-2 rounded hover:bg-[#35BDB6] hover:text-white transition-colors"
-        >
-          Déconnexion
-        </button>
+
+        {/* Profile Menu */}
+        <div className="relative">
+          <button
+            onClick={() => setIsProfileOpen(!isProfileOpen)}
+            className="flex items-center justify-center h-10 w-10 bg-[#35BDB6] text-white rounded-full hover:bg-[#2a9c96] transition-colors"
+          >
+            {user ? 
+              getInitials(user.user_metadata?.full_name || user.email || '') 
+              : <UserIcon className="h-5 w-5" />}
+          </button>
+
+          {isProfileOpen && (
+            <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+              <div className="p-4 border-b">
+                <p className="text-sm text-gray-600">Bienvenue</p>
+                <p className="font-medium">
+                  {user?.user_metadata?.full_name || user?.email || 'Utilisateur'}
+                </p>
+              </div>
+              <div className="p-2">
+                <Link
+                  href="/profile"
+                  className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                >
+                  <UserIcon className="h-4 w-4" />
+                  <span>Informations personnelles</span>
+                </Link>
+                <Link
+                  href="/notifications"
+                  className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                >
+                  <Bell className="h-4 w-4" />
+                  <span>Notifications</span>
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="w-full text-left flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                >
+                  <span>Déconnexion</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   )
