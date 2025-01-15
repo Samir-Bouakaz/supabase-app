@@ -54,7 +54,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-[#0B2228] p-2">
+    <nav className="bg-[#0B2228] p-3">
       <div className="container mx-auto flex items-center px-4">
         <div className="flex-none">
           <Image 
@@ -78,14 +78,14 @@ export default function Navbar() {
             <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
                 <div className="p-2">
                   <Link
-                    href="/configuration-permissions"
+                    href="/auth/autorisations/configuration-permissions"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <Settings className="h-4 w-4" />
                     <span>Configuration des permissions</span>
                   </Link>
                   <Link
-                    href="/parametrage-alertes"
+                    href="/auth/autorisations/parametrage-alertes"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <Bell className="h-4 w-4" />
@@ -101,41 +101,41 @@ export default function Navbar() {
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
             >
               <ShieldCheck className="h-5 w-5" />
-              <span>Gestion Sécurité</span>
+              <span>Gestion sécurité</span>
             </button>
 
             <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
                 <div className="p-2">
                   <Link
-                    href="/rapport-securite"
+                    href="/gestion-securite/rapport-securite"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <ClipboardList className="h-4 w-4" />
                     <span>Rapport de sécurité</span>
                   </Link>
                   <Link
-                    href="/controles-periodiques"
+                    href="/gestion-securite/controles-periodiques"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <Wrench className="h-4 w-4" />
                     <span>Contrôles périodiques</span>
                   </Link>
                   <Link
-                    href="/suivi-equipements"
+                    href="/gestion-securite/suivi-equipements"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <ShieldCheck className="h-4 w-4" />
                     <span>Suivi des équipements</span>
                   </Link>
                   <Link
-                    href="/creation-tickets"
+                    href="/gestion-securite/creation-tickets"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <Ticket className="h-4 w-4" />
                     <span>Création de tickets travaux</span>
                   </Link>
                   <Link
-                    href="/planification-conges"
+                    href="/gestion-securite/planification-conges"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <Calendar className="h-4 w-4" />
@@ -194,31 +194,38 @@ export default function Navbar() {
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
             >
               <LineChart className="h-5 w-5" />
-              <span>Pilotage et Analyses</span>
+              <span>Pilotage et analyses</span>
             </button>
 
             <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2 z-50">
                 <div className="p-2">
                   <Link
-                    href="/pilotage/tableaux-bord"
+                    href="/pilotage/tableau-de-bord"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <LayoutDashboard className="h-4 w-4" />
-                    <span>Tableaux de bord sécurité</span>
+                    <span>Tableau de bord</span>
                   </Link>
                   <Link
-                    href="/pilotage/analyses-statistiques"
+                    href="/pilotage/statistiques"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <BarChart className="h-4 w-4" />
-                    <span>Analyses statistiques approfondies</span>
+                    <span>Statistiques</span>
                   </Link>
                   <Link
-                    href="/pilotage/rapports-consolides"
+                    href="/pilotage/rapports"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
                     <FileText className="h-4 w-4" />
-                    <span>Rapports consolidés</span>
+                    <span>Rapports</span>
+                  </Link>
+                  <Link
+                    href="/pilotage/alertes"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <Bell className="h-4 w-4" />
+                    <span>Alertes</span>
                   </Link>
                 </div>
               </div>
