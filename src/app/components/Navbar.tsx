@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { User } from '@supabase/supabase-js'
 import Image from 'next/image'
 import {
@@ -19,7 +19,6 @@ import {
   LogOut,
   Building,
   User as UserIcon,
-  LineChart,
   LayoutDashboard,
   BarChart,
   FileText
@@ -29,6 +28,22 @@ export default function Navbar() {
   const supabase = createClientComponentClient()
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const navRef = useRef<HTMLDivElement>(null)
+
+  // Fermer le menu si on clique en dehors
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setOpenMenu(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   useEffect(() => {
     const getUser = async () => {
@@ -54,7 +69,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-[#0B2228] p-3">
+    <nav className="bg-[#0B2228] p-3" ref={navRef}>
       <div className="container mx-auto flex items-center px-4">
         <div className="flex-none">
           <Image 
@@ -67,165 +82,170 @@ export default function Navbar() {
         </div>
         <div className="flex-1 flex justify-center items-center space-x-6">
           {/* Menu Autorisations et accès */}
-          <div className="relative group">
+          <div className="relative">
             <button
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
+              onClick={() => setOpenMenu(openMenu === 'auth' ? null : 'auth')}
             >
               <Lock className="h-5 w-5" />
               <span>Autorisations et accès</span>
             </button>
 
-            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
-                <div className="p-2">
+            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+              openMenu === 'auth' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}>
+                <div className="p-2 flex flex-wrap">
                   <Link
                     href="/auth/autorisations/configuration-permissions"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <Settings className="h-4 w-4" />
-                    <span>Configuration des permissions</span>
+                    <Settings className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Configuration des permissions</span>
                   </Link>
                   <Link
                     href="/auth/autorisations/parametrage-alertes"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <Bell className="h-4 w-4" />
-                    <span>Paramétrage des alertes</span>
+                    <Bell className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Paramétrage des alertes</span>
                   </Link>
                 </div>
               </div>
           </div>
 
           {/* Menu Gestion Sécurité */}
-          <div className="relative group">
+          <div className="relative">
             <button
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
+              onClick={() => setOpenMenu(openMenu === 'security' ? null : 'security')}
             >
               <ShieldCheck className="h-5 w-5" />
               <span>Gestion sécurité</span>
             </button>
 
-            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
-                <div className="p-2">
+            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+              openMenu === 'security' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}>
+                <div className="p-2 flex flex-wrap">
                   <Link
                     href="/gestion-securite/controles-periodiques"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <Wrench className="h-4 w-4" />
-                    <span>Contrôles périodiques</span>
+                    <Wrench className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Contrôles périodiques</span>
                   </Link>
                   <Link
                     href="/gestion-securite/creation-tickets"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <Ticket className="h-4 w-4" />
-                    <span>Création de tickets travaux</span>
+                    <Ticket className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Création de tickets travaux</span>
                   </Link>
                   <Link
                     href="/gestion-securite/planification-conges"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <Calendar className="h-4 w-4" />
-                    <span>Planification des congés</span>
+                    <Calendar className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Planification des congés</span>
                   </Link>
                   <Link
                     href="/gestion-securite/rapport-securite"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <ClipboardList className="h-4 w-4" />
-                    <span>Rapport de sécurité</span>
+                    <ClipboardList className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Rapport de sécurité</span>
                   </Link>
                   <Link
                     href="/gestion-securite/suivi-equipements"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <ShieldCheck className="h-4 w-4" />
-                    <span>Suivi des équipements</span>
+                    <ShieldCheck className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Suivi des équipements</span>
                   </Link>
                 </div>
               </div>
           </div>
 
-          {/* Menu Pilotage et Analyses */}
-          <div className="relative group">
+          {/* Menu Pilotage et analyses */}
+          <div className="relative">
             <button
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
+              onClick={() => setOpenMenu(openMenu === 'pilotage' ? null : 'pilotage')}
             >
-              <LineChart className="h-5 w-5" />
+              <LayoutDashboard className="h-5 w-5" />
               <span>Pilotage et analyses</span>
             </button>
 
-            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2 z-50">
-                <div className="p-2">
+            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+              openMenu === 'pilotage' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}>
+                <div className="p-2 flex flex-wrap">
                   <Link
-                    href="/pilotage/alertes"
+                    href="/pilotage/tableaux-de-bord"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <Bell className="h-4 w-4" />
-                    <span>Alertes</span>
+                    <LayoutDashboard className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Tableaux de bord</span>
                   </Link>
                   <Link
-                    href="/pilotage/rapports"
+                    href="/pilotage/analyses-statistiques"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <FileText className="h-4 w-4" />
-                    <span>Rapports</span>
+                    <BarChart className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Analyses statistiques</span>
                   </Link>
                   <Link
-                    href="/pilotage/statistiques"
+                    href="/pilotage/rapports-consolides"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <BarChart className="h-4 w-4" />
-                    <span>Statistiques</span>
-                  </Link>
-                  <Link
-                    href="/pilotage/tableau-de-bord"
-                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
-                  >
-                    <LayoutDashboard className="h-4 w-4" />
-                    <span>Tableau de bord</span>
+                    <FileText className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Rapports</span>
                   </Link>
                 </div>
               </div>
           </div>
 
           {/* Menu Référentiel des données */}
-          <div className="relative group">
+          <div className="relative">
             <button
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
+              onClick={() => setOpenMenu(openMenu === 'referentiel' ? null : 'referentiel')}
             >
               <ClipboardList className="h-5 w-5" />
               <span>Référentiel des données</span>
             </button>
 
-            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
-                <div className="p-2">
+            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+              openMenu === 'referentiel' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}>
+                <div className="p-2 flex flex-wrap">
                   <Link
                     href="/referentiel/agents-prestataire"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <UserIcon className="h-4 w-4" />
-                    <span>Agents prestataire de sécurité</span>
+                    <UserIcon className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Agents prestataire de sécurité</span>
                   </Link>
                   <Link
                     href="/referentiel/personnel-bar"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <UserCircle className="h-4 w-4" />
-                    <span>Personnel de bar O'Sullivans</span>
+                    <UserCircle className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Personnel de bar O'Sullivans</span>
                   </Link>
                   <Link
                     href="/referentiel/personnel-securite"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <ShieldCheck className="h-4 w-4" />
-                    <span>Personnel de sécurité O'Sullivans</span>
+                    <ShieldCheck className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Personnel de sécurité O'Sullivans</span>
                   </Link>
                   <Link
                     href="/referentiel/societe-prestataire"
                     className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                   >
-                    <Building className="h-4 w-4" />
-                    <span>Société prestataire de sécurité</span>
+                    <Building className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Société prestataire de sécurité</span>
                   </Link>
                 </div>
               </div>
@@ -233,14 +253,17 @@ export default function Navbar() {
         </div>
 
         {/* Profile Menu */}
-        <div className="relative group">
+        <div className="relative">
           <button
-              className="flex items-center justify-center text-[#35BDB6] rounded-lg hover:text-[#2a9c96] transition-colors"
+              className="flex items-center justify-center bg-[#0B2228] text-white rounded-lg hover:text-[#35BDB6] transition-colors"
+              onClick={() => setOpenMenu(openMenu === 'profile' ? null : 'profile')}
           >
             <UserCircle className="h-10 w-10" />
           </button>
 
-            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2 z-50">
+            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 z-50 ${
+              openMenu === 'profile' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}>
               <div className="p-4 border-b">
                 <p className="text-sm text-gray-600">Bienvenue</p>
                 <p className="font-medium">
@@ -249,24 +272,24 @@ export default function Navbar() {
               </div>
               <div className="p-2">
                 <Link
-                  href="/profile"
+                  href="/profil/informations-personnelles"
                   className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                 >
-                  <UserCircle className="h-4 w-4" />
-                  <span>Informations personnelles</span>
+                  <UserCircle className="h-5 w-5" />
+                  <span className="whitespace-nowrap">Informations personnelles</span>
                 </Link>
                 <Link
-                  href="/notifications"
+                  href="/profil/notifications"
                   className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                 >
-                  <Bell className="h-4 w-4" />
-                  <span>Notifications</span>
+                  <Bell className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Notifications</span>
                 </Link>
                 <button
                   onClick={handleSignOut}
                   className="w-full text-left flex items-center space-x-2 p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
                 >
-                  <LogOut className="h-4 w-4" />
+                  <LogOut className="h-5 w-5" />
                   <span>Déconnexion</span>
                 </button>
               </div>
