@@ -28,8 +28,6 @@ import {
 export default function Navbar() {
   const supabase = createClientComponentClient()
   const router = useRouter()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
@@ -69,17 +67,15 @@ export default function Navbar() {
         </div>
         <div className="flex-1 flex justify-center items-center space-x-6">
           {/* Menu Autorisations et accès */}
-          <div className="relative">
+          <div className="relative group">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
             >
               <Lock className="h-5 w-5" />
               <span>Autorisations et accès</span>
             </button>
 
-            {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
                 <div className="p-2">
                   <Link
                     href="/configuration-permissions"
@@ -97,21 +93,18 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            )}
           </div>
 
           {/* Menu Gestion Sécurité */}
-          <div className="relative">
+          <div className="relative group">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
             >
               <ShieldCheck className="h-5 w-5" />
               <span>Gestion Sécurité</span>
             </button>
 
-            {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
                 <div className="p-2">
                   <Link
                     href="/rapport-securite"
@@ -150,21 +143,18 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            )}
           </div>
 
           {/* Menu Référentiel des données */}
-          <div className="relative">
+          <div className="relative group">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
             >
               <ClipboardList className="h-5 w-5" />
               <span>Référentiel des données</span>
             </button>
 
-            {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2">
                 <div className="p-2">
                   <Link
                     href="/referentiel/personnel-bar"
@@ -196,21 +186,18 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            )}
           </div>
 
           {/* Menu Pilotage et Analyses */}
-          <div className="relative">
+          <div className="relative group">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="flex items-center space-x-2 text-white hover:text-[#35BDB6] transition-colors"
             >
               <LineChart className="h-5 w-5" />
               <span>Pilotage et Analyses</span>
             </button>
 
-            {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2 z-50">
                 <div className="p-2">
                   <Link
                     href="/pilotage/tableaux-bord"
@@ -235,21 +222,18 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
-            )}
           </div>
         </div>
 
         {/* Profile Menu */}
-        <div className="relative">
+        <div className="relative group">
           <button
-            onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center justify-center text-[#35BDB6] rounded-lg hover:text-[#2a9c96] transition-colors"
+              className="flex items-center justify-center text-[#35BDB6] rounded-lg hover:text-[#2a9c96] transition-colors"
           >
             <UserCircle className="h-10 w-10" />
           </button>
 
-          {isProfileOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg">
+            <div className="absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 delay-100 group-hover:delay-0 p-2 z-50">
               <div className="p-4 border-b">
                 <p className="text-sm text-gray-600">Bienvenue</p>
                 <p className="font-medium">
@@ -280,7 +264,6 @@ export default function Navbar() {
                 </button>
               </div>
             </div>
-          )}
         </div>
       </div>
     </nav>
