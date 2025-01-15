@@ -29,19 +29,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-4 text-[#0B2228]">Connexion</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0B2228] to-[#1A4850]">
+      <div className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl shadow-2xl w-96 border border-white/20">
+        <h1 className="text-3xl font-bold mb-6 text-white text-center">Connexion</h1>
         
         {error && (
-          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
+          <div className="mb-4 p-3 bg-red-400/10 text-red-300 rounded-lg border border-red-400/20">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSignIn}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <form onSubmit={handleSignIn} className="space-y-6">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-2">
               Email
             </label>
             <input
@@ -49,13 +49,14 @@ export default function LoginPage() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-2 w-full border rounded"
+              className="w-full px-4 py-3 bg-white/5 text-white rounded-lg border border-white/10 focus:border-white/30 focus:ring-2 focus:ring-white/20 focus:outline-none transition-all"
+              placeholder="Entrez votre email"
               required
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-white/80 mb-2">
               Mot de passe
             </label>
             <input
@@ -63,14 +64,15 @@ export default function LoginPage() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-2 w-full border rounded"
+              className="w-full px-4 py-3 bg-white/5 text-white rounded-lg border border-white/10 focus:border-white/30 focus:ring-2 focus:ring-white/20 focus:outline-none transition-all"
+              placeholder="••••••••"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#0B2228] text-white px-4 py-2 rounded hover:bg-[#0B2228]/90"
+            className="w-full px-6 py-3 bg-gradient-to-r from-[#35BDB6] to-[#2AA7A1] text-white font-medium rounded-lg hover:from-[#35BDB6]/90 hover:to-[#2AA7A1]/90 transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-xl"
           >
             Se connecter
           </button>
