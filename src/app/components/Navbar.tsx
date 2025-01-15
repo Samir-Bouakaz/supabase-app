@@ -57,15 +57,17 @@ export default function Navbar() {
 
   return (
     <nav className="bg-[#0B2228] p-2">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <div className="flex items-center space-x-6">
+      <div className="container mx-auto flex items-center px-4">
+        <div className="flex-none">
           <Image 
             src="/logo-os.jpg" 
             alt="Logo OS" 
             width={40} 
             height={40}
-            className="mr-4 rounded-full"
+            className="rounded-full"
           />
+        </div>
+        <div className="flex-1 flex justify-center items-center space-x-6">
           {/* Menu Autorisations et accès */}
           <div className="relative">
             <button
