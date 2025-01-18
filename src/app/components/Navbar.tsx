@@ -19,6 +19,7 @@ import {
   LogOut,
   Building,
   User as UserIcon,
+  User as UserIcon2,
   LayoutDashboard,
   BarChart,
   FileText
@@ -49,6 +50,9 @@ export default function Navbar() {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
+        console.log('User object:', user)
+        console.log('User metadata:', user.user_metadata)
+        console.log('Identities:', user.identities)
         setUser(user)
       }
     }
@@ -73,11 +77,11 @@ export default function Navbar() {
       <div className="container mx-auto flex items-center px-4">
         <div className="flex-none">
           <Image 
-            src="/logo-os.jpg" 
-            alt="Logo OS" 
-            width={40} 
-            height={40}
-            className="rounded-full"
+            src="/osgroup.png"
+            alt="Logo OS Group" 
+            width={120} 
+            height={120}
+            className="brightness-0 invert"
           />
         </div>
         <div className="flex-1 flex justify-center items-center space-x-6">
@@ -254,28 +258,30 @@ export default function Navbar() {
 
         {/* Profile Menu */}
         <div className="relative">
-          <button
-              className="flex items-center justify-center bg-[#0B2228] text-white rounded-lg hover:text-[#35BDB6] transition-colors"
-              onClick={() => setOpenMenu(openMenu === 'profile' ? null : 'profile')}
-          >
-            <UserCircle className="h-10 w-10" />
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+                className="flex items-center justify-center bg-[#0B2228] text-white rounded-lg hover:text-[#35BDB6] transition-colors"
+                onClick={() => setOpenMenu(openMenu === 'profile' ? null : 'profile')}
+            >
+              <UserCircle className="h-10 w-10" />
+            </button>
+            <span className="text-white">
+              Bonjour {user?.user_metadata?.firstName || 
+                      user?.user_metadata?.full_name?.split(' ')[0] || 
+                      user?.identities?.[0]?.identity_data?.first_name || 
+                      'Utilisateur'}
+            </span>
+          </div>
 
             <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 z-50 ${
               openMenu === 'profile' ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
-              <div className="p-4 border-b">
-                <p className="text-sm text-gray-600">Bienvenue</p>
-                <p className="font-medium">
-                  {user?.user_metadata?.full_name || user?.email || 'Utilisateur'}
-                </p>
-              </div>
               <div className="p-2">
                 <Link
                   href="/profil/informations-personnelles"
                   className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
                 >
-                  <UserCircle className="h-5 w-5" />
+                  <UserIcon2 className="h-5 w-5" />
                   <span className="whitespace-nowrap">Informations personnelles</span>
                 </Link>
                 <Link

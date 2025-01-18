@@ -5,12 +5,14 @@ import { usePathname } from 'next/navigation';
 
 const Navbar = dynamic(() => import('./components/Navbar'), { ssr: false });
 const AuthProvider = dynamic(() => import('./AuthProvider'), { ssr: false });
+const InactivityTimer = dynamic(() => import('./components/InactivityTimer'), { ssr: false });
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <AuthProvider>
       <NavbarWrapper>
         {children}
+        <InactivityTimer />
       </NavbarWrapper>
     </AuthProvider>
   );
