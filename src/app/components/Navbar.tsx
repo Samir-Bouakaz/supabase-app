@@ -95,7 +95,7 @@ export default function Navbar() {
               <span>Autorisations et accès</span>
             </button>
 
-            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+            <div className={`absolute right-0 mt-4 w-auto min-w-fit bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
               openMenu === 'auth' ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
                 <div className="p-2 flex flex-wrap">
@@ -127,7 +127,7 @@ export default function Navbar() {
               <span>Gestion sécurité</span>
             </button>
 
-            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+            <div className={`absolute right-0 mt-4 w-auto min-w-fit bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
               openMenu === 'security' ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
                 <div className="p-2 flex flex-wrap">
@@ -180,7 +180,7 @@ export default function Navbar() {
               <span>Pilotage et analyses</span>
             </button>
 
-            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+            <div className={`absolute right-0 mt-4 w-auto min-w-fit bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
               openMenu === 'pilotage' ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
                 <div className="p-2 flex flex-wrap">
@@ -219,7 +219,7 @@ export default function Navbar() {
               <span>Référentiel des données</span>
             </button>
 
-            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
+            <div className={`absolute right-0 mt-4 w-auto min-w-fit bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 ${
               openMenu === 'referentiel' ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
                 <div className="p-2 flex flex-wrap">
@@ -273,7 +273,7 @@ export default function Navbar() {
             </span>
           </div>
 
-            <div className={`absolute right-0 mt-4 w-64 bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 z-50 ${
+            <div className={`absolute right-0 mt-4 w-auto min-w-fit bg-white rounded-lg shadow-lg transition-all duration-100 ease-in-out p-2 z-50 ${
               openMenu === 'profile' ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
               <div className="p-2">
