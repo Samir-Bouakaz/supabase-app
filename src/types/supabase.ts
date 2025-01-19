@@ -1,2 +1,3 @@
-Need to install the following packages:
-supabase@2.6.8
+import { Database } from '@/lib/supabase/database.types'
+
+export type { Database }

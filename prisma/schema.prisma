@@ -21,3 +21,16 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Etablissement {
+  id          String   @id @default(cuid())
+  nom         String
+  logo        Bytes?
+  numeroRue   String
+  nomRue      String
+  codePostal  String
+  ville       String
+  telephone   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
