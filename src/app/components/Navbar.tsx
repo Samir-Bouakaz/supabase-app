@@ -251,6 +251,13 @@ export default function Navbar() {
                     <Building className="h-5 w-5" />
                     <span className="whitespace-nowrap">Société prestataire de sécurité</span>
                   </Link>
+                  <Link
+                    href="/referentiel/etablissements"
+                    className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-[#35BDB6] hover:text-white rounded-md transition-colors"
+                  >
+                    <Building className="h-5 w-5" />
+                    <span className="whitespace-nowrap">Établissements</span>
+                  </Link>
                 </div>
               </div>
           </div>
