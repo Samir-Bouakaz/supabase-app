@@ -113,7 +113,7 @@ export default function EtablissementsPage() {
       </Button>
 
       {showForm && (
-        <div className="bg-white p-6 rounded-lg shadow mb-4">
+        <div className="bg-white p-6 rounded-lg shadow mb-4 max-w-2xl mx-auto">
           <EtablissementForm
             initialData={selectedEtablissement}
             onSave={handleSave}
